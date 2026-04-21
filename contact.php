@@ -1,3 +1,4 @@
+
 <?php
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.html');
@@ -20,7 +21,7 @@ if (!empty($errors)) {
     exit;
 }
 
-$to      = 'ian@ianwaindim.com'; // Update to your real email
+$to      = 'waindimian@outlook.com'; 
 $subject = "New project inquiry from $name — $business";
 $body    = "Name: $name\nEmail: $email\nBusiness: $business\nBudget: $budget\n\nMessage:\n$message";
 $headers = "From: noreply@ianwaindim.com\r\nReply-To: $email";
