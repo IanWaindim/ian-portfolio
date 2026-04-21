@@ -1,0 +1,1040 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ian Waindim — Web Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07080F;
+      --surface: #0E1018;
+      --border: rgba(255,255,255,0.06);
+      --accent: #00FF94;
+      --accent-dim: rgba(0,255,148,0.12);
+      --accent-mid: rgba(0,255,148,0.4);
+      --text: #F0F0F0;
+      --muted: #6B7280;
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .syne { font-family: 'Syne', sans-serif; }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,148,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,148,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,8,15,0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--bg) !important;
+      padding: 0.5rem 1.2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.05em !important;
+      transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.85; color: var(--bg) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      width: fit-content;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-name .accent { color: var(--accent); }
+
+    .hero-tagline {
+      margin-top: 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: var(--muted);
+      max-width: 38rem;
+      line-height: 1.9;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-tagline span { color: var(--accent); }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.9rem 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.9rem 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--accent-mid); color: var(--accent); }
+
+    .hero-stats {
+      margin-top: 5rem;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 3rem;
+      width: fit-content;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    /* SECTION WRAPPER */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .section-title .accent { color: var(--accent); }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      background: var(--bg);
+      padding: 2.5rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover { background: var(--surface); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-num {
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      opacity: 0.6;
+    }
+
+    .service-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .service-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-mid);
+      padding: 0.2rem 0.6rem;
+      background: var(--accent-dim);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+
+    .about-image {
+      aspect-ratio: 4/5;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-image-corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .tl { top: 1rem; left: 1rem; border-width: 1px 0 0 1px; }
+    .tr { top: 1rem; right: 1rem; border-width: 1px 1px 0 0; }
+    .bl { bottom: 1rem; left: 1rem; border-width: 0 0 1px 1px; }
+    .br { bottom: 1rem; right: 1rem; border-width: 0 1px 1px 0; }
+
+    .about-content p {
+      font-size: 0.85rem;
+      color: #9CA3AF;
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-content p strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .about-content p .green { color: var(--accent); }
+
+    .skills-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .skill-item::before {
+      content: '▸';
+      color: var(--accent);
+      font-size: 0.6rem;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+
+    .portfolio-card:hover {
+      border-color: var(--accent-mid);
+      transform: translateY(-4px);
+    }
+
+    .portfolio-preview {
+      height: 200px;
+      background: linear-gradient(135deg, #0E1018 0%, #1a1f2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-preview-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.1);
+      letter-spacing: -0.02em;
+    }
+
+    .portfolio-preview-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .portfolio-info {
+      padding: 1.5rem;
+    }
+
+    .portfolio-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .coming-soon {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* PROCESS */
+    .process-list {
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .process-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      padding: 2rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .process-item:last-child { border-bottom: none; }
+    .process-item:hover { background: var(--surface); }
+
+    .process-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.3;
+    }
+
+    .process-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .process-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .process-time {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid var(--accent-mid);
+      padding: 0.25rem 0.75rem;
+      white-space: nowrap;
+    }
+
+    /* CONTACT */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .contact-detail:hover { border-color: var(--accent-mid); }
+
+    .contact-detail-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      min-width: 4rem;
+    }
+
+    form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.8rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'Space Mono', monospace;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent-mid);
+    }
+
+    textarea { resize: none; height: 7rem; }
+
+    .btn-submit {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 1rem 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    footer p {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .hero-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .process-item { grid-template-columns: 50px 1fr; gap: 0 1rem; }
+      .process-time { display: none; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Ian<span>.</span>dev</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Available for new projects</div>
+    <h1 class="hero-name">
+      Ian<br/>
+      Wain<span class="accent">dim</span>
+    </h1>
+    <p class="hero-tagline">
+      I build <span>fast, modern websites</span> for local businesses —<br/>
+      using real code, AI-assisted development, and a CS degree<br/>
+      to deliver work that actually performs.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-outline">Start a Project →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">CS</div>
+        <div class="stat-label">Baker University '26</div>
+      </div>
+      <div>
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Hidden Fees, Ever</div>
+      </div>
+      <div>
+        <div class="stat-num">KS</div>
+        <div class="stat-label">Based Locally</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="reveal">
+      <p class="section-tag">What I Build</p>
+      <h2 class="section-title">Professional websites.<br/>Real <span class="accent">results.</span></h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">Business Websites</div>
+        <p class="service-desc">Clean, fast, mobile-first websites built from real code — not templates. Your business deserves something that stands out, not a drag-and-drop clone.</p>
+        <div class="service-tags">
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">Responsive</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">Custom Features</div>
+        <p class="service-desc">Contact forms, booking integrations, galleries, maps, and more. If your business needs it, I can build it — no plugin limitations, no workarounds.</p>
+        <div class="service-tags">
+          <span class="tag">PHP</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">Ongoing Maintenance</div>
+        <p class="service-desc">Monthly plans to keep your site updated, secure, and performing. You own your site — I just keep it running perfectly so you can focus on your business.</p>
+        <div class="service-tags">
+          <span class="tag">Updates</span>
+          <span class="tag">Security</span>
+          <span class="tag">Hosting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="reveal">
+      <p class="section-tag">The Person Behind The Code</p>
+      <h2 class="section-title">Built different.<br/>From <span class="accent">Bamenda</span> to Baldwin City.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <!-- Replace src with your actual photo path when you have it -->
+        <!-- <img src="assets/ian.jpg" alt="Ian Waindim" /> -->
+        <div class="about-image-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span style="font-size:0.65rem; letter-spacing:0.15em; opacity:0.4;">Photo Coming Soon</span>
+        </div>
+        <div class="about-image-corner tl"></div>
+        <div class="about-image-corner tr"></div>
+        <div class="about-image-corner bl"></div>
+        <div class="about-image-corner br"></div>
+      </div>
+      <div class="about-content reveal">
+        <p>
+          I'm <strong>Ian Waindim</strong>, a Computer Science student at Baker University graduating May 2026, with a minor in Mathematics. I grew up in <span class="green">Bamenda, Cameroon</span> — a place that taught me resilience and what it means to work for everything you have.
+        </p>
+        <p>
+          I build websites for local businesses using modern tools and AI-assisted development to move fast without cutting corners. My computer science background means I can handle things a typical web designer can't — custom logic, database integrations, and anything that needs real programming.
+        </p>
+        <p>
+          Off the screen, I'm a forward for the Baker Wildcats soccer team. In 2024 we made the <span class="green">NAIA Championship</span> — our best run since 2019 and won conference in 2025. Soccer taught me the same things that make me good at this work: discipline, reading the field, and showing up when it matters.
+        </p>
+        <p>
+          I'm not a freelance marketplace listing. I'm a <strong>local developer</strong> you can actually meet, who knows your community, and who will still be here when you need something updated.
+        </p>
+        <div class="skills-list">
+          <span class="skill-item">HTML / CSS / Tailwind</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">PHP & MySQL</span>
+          <span class="skill-item">Python & Java</span>
+          <span class="skill-item">Git & GitHub</span>
+          <span class="skill-item">Cloudflare / Vercel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="reveal">
+      <p class="section-tag">Recent Work</p>
+      <h2 class="section-title">Sites I've <span class="accent">shipped.</span></h2>
+    </div>
+    <div class="portfolio-grid reveal">
+      <a href="https://martha-site.pages.dev" target="_blank" class="portfolio-card">
+        <div class="portfolio-preview">
+          <span class="portfolio-preview-text">Martha Afuma</span>
+          <span class="portfolio-preview-badge">Live</span>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-title">Waindim Martha Afuma</div>
+          <p class="portfolio-desc">Personal portfolio site featuring editorial design, scroll animations, contact form, and full Cloudflare deployment.</p>
+          <span class="portfolio-link">Visit Site →</span>
+        </div>
+      </a>
+      <div class="portfolio-card coming-soon">
+        <div class="portfolio-preview">
+          <span class="portfolio-preview-text">Your Business</span>
+          <span class="portfolio-preview-badge" style="background:rgba(107,114,128,0.1); border-color:rgba(107,114,128,0.3); color:#6B7280;">Up Next</span>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-title">Your Business Could Be Here</div>
+          <p class="portfolio-desc">I'm currently taking on new clients. If you're a local business in Kansas looking for a professional website, let's talk.</p>
+          <span class="portfolio-link" style="color:var(--muted);">Spot Available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="reveal">
+      <p class="section-tag">How It Works</p>
+      <h2 class="section-title">Simple process.<br/><span class="accent">Fast delivery.</span></h2>
+    </div>
+    <div class="process-list reveal">
+      <div class="process-item">
+        <div class="process-num">01</div>
+        <div>
+          <div class="process-title">We Talk</div>
+          <p class="process-desc">Tell me about your business, what you need, and what you want people to feel when they land on your site.</p>
+        </div>
+        <span class="process-time">Day 1</span>
+      </div>
+      <div class="process-item">
+        <div class="process-num">02</div>
+        <div>
+          <div class="process-title">I Build</div>
+          <p class="process-desc">I design and code your site from scratch — mobile-first, fast, and built to represent your business professionally.</p>
+        </div>
+        <span class="process-time">Days 2–10</span>
+      </div>
+      <div class="process-item">
+        <div class="process-num">03</div>
+        <div>
+          <div class="process-title">You Review</div>
+          <p class="process-desc">I show you the site and we make any adjustments. Your feedback shapes the final product.</p>
+        </div>
+        <span class="process-time">Days 10–14</span>
+      </div>
+      <div class="process-item">
+        <div class="process-num">04</div>
+        <div>
+          <div class="process-title">We Launch</div>
+          <p class="process-desc">Your site goes live on your domain, fully secure, fast globally, and ready to bring in customers.</p>
+        </div>
+        <span class="process-time">Day 14</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="reveal">
+      <p class="section-tag">Start A Project</p>
+      <h2 class="section-title">Let's build<br/>something <span class="accent">real.</span></h2>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info reveal">
+        <h3>Ready when you are.</h3>
+        <p>Whether you need a brand new site or want to replace something that isn't working — I'll give you a straight answer on what I can build, how long it takes, and what it costs. No runaround.</p>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Location</span>
+          Baldwin City, Kansas
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Email</span>
+          ian@ianwaindim.com
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Starting At</span>
+          $600 — full site, you own everything
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Turnaround</span>
+          ~2 weeks from kickoff to launch
+        </div>
+      </div>
+      <form class="reveal" action="contact.php" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="jane@business.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="business">Business Name</label>
+          <input type="text" id="business" name="business" placeholder="Smith's Plumbing Co." />
+        </div>
+        <div class="form-group">
+          <label for="budget">Budget Range</label>
+          <select id="budget" name="budget">
+            <option value="">Select a range...</option>
+            <option>$500 – $800</option>
+            <option>$800 – $1,200</option>
+            <option>$1,200 – $2,000</option>
+            <option>$2,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell Me About Your Project</label>
+          <textarea id="message" name="message" required placeholder="What does your business do? Do you have an existing site? What do you need?"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer>
+    <div class="footer-logo">Ian<span>.</span>dev</div>
+    <p>© 2025 Ian Waindim · Baldwin City, KS · Baker University CS '26</p>
+    <p style="color: #374151; font-size:0.6rem;">Built by me, obviously.</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
