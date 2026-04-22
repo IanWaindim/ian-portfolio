@@ -684,7 +684,7 @@
     /* PRICING */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.5rem;
       margin-top: 4rem;
     }
@@ -799,31 +799,41 @@
       font-size: 0.88rem;
       color: var(--gray);
       line-height: 1.8;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
-    .info-row {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem 1.25rem;
+    .contact-email {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      padding: 1.15rem 1.35rem;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 4px;
-      margin-bottom: 0.75rem;
+      max-width: 100%;
       transition: border-color 0.2s;
     }
 
-    .info-row:hover { border-color: var(--blue-mid); }
+    .contact-email:hover { border-color: var(--blue-mid); }
 
-    .info-label {
+    .contact-email-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.55rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--blue);
-      min-width: 5rem;
     }
 
-    .info-val { font-size: 0.82rem; color: var(--off); }
+    .contact-email-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--off);
+      text-decoration: none;
+      word-break: break-word;
+      transition: color 0.2s;
+    }
+
+    .contact-email-link:hover { color: var(--blue); }
 
     form { display: flex; flex-direction: column; gap: 1rem; }
 
@@ -964,7 +974,7 @@
     <div class="hero-meta">
       <span class="meta-chip">Baldwin City, KS</span>
       <span class="meta-chip">CS + Math '26</span>
-      <span class="meta-chip">~2 Week Delivery</span>
+      <span class="meta-chip">~10 Days Delivery</span>
     </div>
     <div class="hero-btns">
       <a href="#work" class="btn-blue">See My Work</a>
@@ -974,7 +984,7 @@
 
   <div class="hero-photo">
     <div class="photo-wrap">
-      <img src="assets/ian.jpg" alt="Ian Waindim"/>
+      <img src="Ian2.jpeg" alt="Ian Waindim"/>
       <div class="photo-wrap" style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(79,142,247,0.15));border-radius:4px;pointer-events:none;"></div>
       <div class="photo-border-tl"></div>
       <div class="photo-border-br"></div>
@@ -1000,7 +1010,7 @@
     <span class="ticker-item"><span></span>Git & GitHub</span>
     <span class="ticker-item"><span></span>Cloudflare Hosting</span>
     <span class="ticker-item"><span></span>Mobile-First</span>
-    <span class="ticker-item"><span></span>2-Week Delivery</span>
+    <span class="ticker-item"><span></span>10 Days Delivery</span>
     <span class="ticker-item"><span></span>HTML / Tailwind</span>
     <span class="ticker-item"><span></span>JavaScript</span>
     <span class="ticker-item"><span></span>PHP & MySQL</span>
@@ -1053,19 +1063,19 @@
   <div class="reveal">
     <p class="sec-label">The Person Behind The Code</p>
     <h2 class="sec-title">BUILT<br/><em>DIFFERENT.</em></h2>
-    <p class="sec-sub">From Bamenda, Cameroon to Baldwin City, Kansas — here's who's building your website.</p>
+    <p class="sec-sub"> Here's who's building your website.</p>
   </div>
   <div class="about-grid">
     <div class="about-photo-wrap reveal">
-      <img src="assets/ian.jpg" alt="Ian Waindim"/>
+      <img src="Ian.jpeg" alt="Ian Waindim"/>
       <div class="about-photo-overlay"></div>
       <div class="about-corner-tl"></div>
       <div class="about-corner-br"></div>
     </div>
     <div class="about-text reveal">
       <p>I'm <strong>Ian Waindim</strong>, a Computer Science student at Baker University graduating May 2026 with a minor in Mathematics. I grew up in <span class="hl">Bamenda, Cameroon</span> — a place that taught me resilience and what it means to work hard for everything you want.</p>
-      <p>I build websites for local businesses using modern tools and AI-assisted development to move fast without cutting corners. My CS background means I handle things a typical web designer can't — custom logic, database integrations, and anything that needs real programming.</p>
-      <p>Off the screen, I'm a forward for the <strong>Baker Wildcats soccer team</strong>. In 2024 we made the <span class="hl">NAIA Championship</span> — our best run since 2019. Soccer taught me discipline, reading the field, and showing up when it matters. Same things that make me good at this.</p>
+      <p>I build websites for local businesses using modern tools and AI-assisted environments to move fast without cutting corners. My CS background means I handle things a typical web designer can't — custom logic, database integrations, and backend management, basically anything that needs real programming.</p>
+      <p>Off the screen, I'm a forward for the <strong>Baker University Wildcats soccer team</strong>. In 2024 and 2025 respectively, we made the <span class="hl">NAIA Championship Sweet 16</span>, won our conference, and had our best run since 2019. Soccer has taught me discipline, reading the field, and showing up when it matters. Same things that make me good at this.</p>
       <p>I'm not a freelance marketplace listing. I'm a <strong>local developer</strong> you can actually meet, who knows your community, and who will be here when you need something updated.</p>
       <div class="about-skills">
         <span class="sk">HTML / CSS / Tailwind</span>
@@ -1100,12 +1110,12 @@
       </div>
     </a>
     <div class="work-card dim">
-      <div class="work-preview" style="background:linear-gradient(135deg,#111118,#16161F);">
+      <div class="work-preview" style="background:linear-gradient(135deg,#111118,#171720);">
         <span class="work-preview-text" style="opacity:0.03;">YOUR BIZ</span>
       </div>
       <div class="work-info">
         <div class="work-title" style="color:var(--gray);">Your Business Could Be Here</div>
-        <p class="work-desc">Currently taking on new clients in Kansas. If you need a professional site, let's talk.</p>
+        <p class="work-desc">Currently taking on new clients anywhere in Baldwin City, Kansas. If you need a professional site, let's talk.</p>
         <span class="work-link" style="color:var(--gray2);">Spot Available</span>
       </div>
     </div>
@@ -1131,19 +1141,19 @@
       <div class="step-num">02</div>
       <div class="step-title">I Build</div>
       <p class="step-desc">I design and code your site from scratch — mobile-first, fast, and built to represent your business professionally.</p>
-      <span class="step-time">Days 2–10</span>
+      <span class="step-time">Days 1–5</span>
     </div>
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-title">You Review</div>
       <p class="step-desc">I show you the site and we make adjustments. Your feedback shapes the final product before it goes live.</p>
-      <span class="step-time">Days 10–14</span>
+      <span class="step-time">Days 6–9</span>
     </div>
     <div class="step">
       <div class="step-num">04</div>
       <div class="step-title">We Launch</div>
       <p class="step-desc">Your site goes live on your domain — secure, globally fast, and ready to bring in real customers.</p>
-      <span class="step-time">Day 14</span>
+      <span class="step-time">Day 10</span>
     </div>
   </div>
 </div>
@@ -1175,7 +1185,7 @@
       <div class="hot-badge">Most Popular</div>
       <div class="price-tier">Professional</div>
       <div class="price-amount"><sup>$</sup>1,000</div>
-      <div class="price-note">one-time + $75/mo maintenance</div>
+      <div class="price-note">one-time + $60/mo maintenance</div>
       <ul class="price-list">
         <li>Up to 8 pages</li>
         <li>Custom design — no templates</li>
@@ -1186,20 +1196,6 @@
         <li>3 rounds of revisions</li>
       </ul>
       <a href="#contact" class="price-btn">Get Started</a>
-    </div>
-    <div class="price-card">
-      <div class="price-tier">Custom</div>
-      <div class="price-amount"><sup>$</sup>1,500<span style="font-size:1.5rem">+</span></div>
-      <div class="price-note">custom quote · complex projects</div>
-      <ul class="price-list">
-        <li>E-commerce or booking systems</li>
-        <li>Database integrations</li>
-        <li>Custom web applications</li>
-        <li>Advanced functionality</li>
-        <li>Priority support</li>
-        <li>Unlimited revisions</li>
-      </ul>
-      <a href="#contact" class="price-btn">Let's Talk</a>
     </div>
   </div>
 </div>
@@ -1213,15 +1209,15 @@
     <h2 class="sec-title">LET'S BUILD<br/><em>SOMETHING REAL.</em></h2>
   </div>
   <div class="contact-grid">
-    <div class="reveal">
+    <div class="reveal contact-left">
       <h3>READY WHEN<br/>YOU ARE.</h3>
       <p>Whether you need a brand new site or want to replace something that isn't working — straight answer on what I can build, how long it takes, and what it costs. No runaround.</p>
-      <div class="info-row"><span class="info-label">Location</span><span class="info-val">Baldwin City, Kansas</span></div>
-      <div class="info-row"><span class="info-label">Email</span><span class="info-val">ian@ianwaindim.com</span></div>
-      <div class="info-row"><span class="info-label">Starting At</span><span class="info-val">$600 — full site, you own it</span></div>
-      <div class="info-row"><span class="info-label">Turnaround</span><span class="info-val">~2 weeks, kickoff to launch</span></div>
+      <div class="contact-email">
+        <span class="contact-email-label">Email</span>
+        <a class="contact-email-link" href="mailto:waindimian@outlook.com">waindimian@outlook.com</a>
+      </div>
     </div>
-    <form class="reveal" action="contact.php" method="POST">
+    <form class="reveal" action="https://formspree.io/f/xojykplv" method="POST">
       <div class="frow">
         <div class="fg">
           <label for="name">Your Name</label>
@@ -1242,8 +1238,6 @@
           <option value="">Select a range...</option>
           <option>$500 – $800 (Starter)</option>
           <option>$800 – $1,200 (Professional)</option>
-          <option>$1,200 – $2,000 (Advanced)</option>
-          <option>$2,000+ (Custom)</option>
         </select>
       </div>
       <div class="fg">
@@ -1259,8 +1253,8 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">IAN WAINDIM<em>.</em></div>
-    <p>© 2025 Ian Waindim · Baldwin City, KS · Baker University CS '26</p>
-    <p>Built by me, obviously.</p>
+    <p>© 2026 Ian Waindim · Baldwin City, KS · Baker University CS '26</p>
+    <p>Built by me, obviously :)</p>
   </div>
 </footer>
 
